@@ -7,4 +7,24 @@
      values
      (#{name},#{password},#{mobile},#{status},#{classAdviser},#{createTime},#{updateTime})
    </insert>
+   
+   <insert id="bindClass" parameterType="int">
+       insert into tb_teacher_class 
+       (tid,cid)
+        values
+       (#{0},#{1})
+   </insert>
+   
+   <select id="getTeacherByMobile" parameterType="String" resultType="com.education.bean.Teacher">
+    select tid,name,password,mobile,class_adviser as classAdviser,create_time as createTime,update_time as updateTime
+    from tb_teacher
+    where mobile = #{mobile} and status =1;
+   </select>
+   
+   <select id="getTeacherList" parameterType="int" resultType="com.education.bean.Teacher">
+     select t.name,t.mobile,t.class_adviser as classAdviser from tb_teacher as t 
+     inner join tb_teacher_class as c on t.tid = c.tid
+     where c.cid = #{cid} 
+      
+   </select>
 </mapper>
