@@ -1,5 +1,7 @@
 package com.education.mapper;
 
-public interface TeacherMapper {
+import com.education.bean.Teacher;
 
+public interface TeacherMapper {
+   public int signUpForTeacher(Teacher teacher);
 }
