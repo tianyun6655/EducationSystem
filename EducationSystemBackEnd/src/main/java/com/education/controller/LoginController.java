@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @RequestMapping("api/login")
 public class LoginController {
-
+     //
 	//TODO 老师登录
 	@RequestMapping(value="login_as_teacher",method = RequestMethod.POST)
 	public void loginAsTeacher(HttpServletRequest request,HttpServletResponse response){
