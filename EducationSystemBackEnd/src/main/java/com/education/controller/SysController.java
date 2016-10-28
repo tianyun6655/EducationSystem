@@ -1,12 +1,9 @@
 package com.education.controller;
-
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.neo4j.cypher.internal.compiler.v2_1.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +13,6 @@ import com.education.bean.Teacher;
 import com.education.service.TeacherService;
 import com.education.untils.FinalValues;
 import com.education.untils.SHA1Util;
-import com.mongodb.util.JSON;
 
 import net.sf.json.JSONObject;
 
