@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.education.bean.Teacher;
 import com.education.service.TeacherService;
-import com.hazelcast.com.eclipsesource.json.JsonObject;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
