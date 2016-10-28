@@ -27,4 +27,8 @@
      where c.cid = #{cid} 
       
    </select>
+   <update id="updateTeacher"  parameterType="com.education.bean.Teacher" >
+     update tb_teacher set mobile=#{mobile}, password=#{password}, name=#{name}, class_adviser =#{classAdviser}
+     where tid=#{tid};
+   </update>
 </mapper>

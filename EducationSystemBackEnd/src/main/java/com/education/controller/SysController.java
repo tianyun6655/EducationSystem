@@ -30,7 +30,8 @@ public class SysController {
 	
 	
 	//TODO 老师登录
-	@RequestMapping(value="login_as_teacher",method = RequestMethod.POST)
+	@RequestMapping(value="login_as_teacher",method = RequestMethod.POST)// 加请求方法
+	//
 	public void loginAsTeacher(HttpServletRequest request,HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
         String mobile  = request.getParameter("mobile");
@@ -39,7 +40,7 @@ public class SysController {
 	    String timeStamp = request.getParameter("time_stamp");
 	    String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);        
 
-        Teacher teacher = teacherService.getTeacherByMobile(mobile);
+        Teacher teacher = teacherService.getTeacherByMobile(mobile);// 框架
         if(!sign.equals(appSign)){
         	jsonObject.put("code",-1);
 

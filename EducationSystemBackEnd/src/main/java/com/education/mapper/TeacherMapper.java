@@ -9,4 +9,5 @@ public interface TeacherMapper {
    public int bindClass(int tid, int cid);
    public Teacher getTeacherByMobile(String mobile);
    public List<Teacher> getTeacherList(int cid);
+   public int updateTeacher(Teacher teacher);
 }
