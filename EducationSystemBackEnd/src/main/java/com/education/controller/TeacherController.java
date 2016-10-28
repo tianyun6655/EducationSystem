@@ -23,12 +23,13 @@ public class TeacherController {
 
 	@Autowired
 	TeacherService  teacherService;
+	
     @RequestMapping(value="list", method= RequestMethod.POST)
 	 public void getTeacherList(HttpServletRequest request,HttpServletResponse response) throws IOException{
 
     }
     
-    
+   
     
    //-------------------------GET测试------------------------------------
     
@@ -50,5 +51,47 @@ public class TeacherController {
 		response.getWriter().write(jsonObject.toString());
 		response.getWriter().close();
  
+    }
+    
+    @RequestMapping("update")
+    public void updateTName(HttpServletRequest request,HttpServletResponse response) throws IOException
+    {
+    	JSONObject object= new JSONObject();
+
+    	String name = request.getParameter("name");
+    	String mobile = request.getParameter("mobile");
+    	String password = request.getParameter("password");
+    	String id = request.getParameter("id");
+
+    	if(name==null){
+    		object.put("code",-1);
+    	}else{
+    		Teacher x = new Teacher();
+        	x.setMobile(mobile);
+        	x.setName(name);
+        	x.setPassword(password);
+        	x.setTid(Integer.parseInt(id));
+        	int result=teacherService.updateTeacher(x);
+        	
+        		if(result==0)
+        		{
+        			object.put("code", 0);
+        		}
+        		else{
+        	JSONObject o = new JSONObject();
+        	o.put("mobile", mobile);
+        	o.put("name", name);
+        	o.put("password", password);
+        	o.put("id", id);
+        	object.put("code", 1);
+        	object.put("data",o);
+        		}
+    	}
+    	
+    	response.getWriter().write(object.toString());
+    	response.getWriter().close();
+    	
+    	
+    	
     }
 }

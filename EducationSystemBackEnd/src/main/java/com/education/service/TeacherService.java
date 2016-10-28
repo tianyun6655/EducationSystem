@@ -32,4 +32,10 @@ public class TeacherService {
 	public List<Teacher> getTeacherList(int cid){
 		return teacherMapper.getTeacherList(cid);
 	}
+	public int updateTeacher(Teacher teacher)
+	{
+		
+		return teacherMapper.updateTeacher(teacher);
+		
+	}
 }
