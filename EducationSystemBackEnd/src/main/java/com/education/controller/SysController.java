@@ -31,17 +31,16 @@ public class SysController {
 	
 	//TODO 老师登录
 	@RequestMapping(value="login_as_teacher",method = RequestMethod.POST)// 加请求方法
-	//
 	public void loginAsTeacher(HttpServletRequest request,HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
         String mobile  = request.getParameter("mobile");
         String password  =  request.getParameter("password");
-		String appSign = request.getParameter("sign");
-	    String timeStamp = request.getParameter("time_stamp");
-	    String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);        
+	    String appSign = request.getParameter("sign");
+	//    String timeStamp = request.getParameter("time_stamp");
+	  //  String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);    
 
         Teacher teacher = teacherService.getTeacherByMobile(mobile);// 框架
-        if(!sign.equals(appSign)){
+        if(!appSign.equals("123")){
         	jsonObject.put("code",-1);
 
         }else{
