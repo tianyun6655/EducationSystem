@@ -3,9 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
+	<groupId>com.education</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.1</version>
+		<version>0.0.1-SNAPSHOT</version>
+	
 	<packaging>war</packaging>
 
 	<name>EducationSystemBackEnd</name>
@@ -20,9 +21,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<version.spring>3.2.9.RELEASE</version.spring>
+	    <version.spring>3.2.9.RELEASE</version.spring>
         <version.jackson>2.4.4</version.jackson>
-		<java.version>1.7</java.version>
+        <java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
@@ -54,6 +55,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.2</version>
@@ -82,6 +87,15 @@
          <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+        
+          <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-jersey</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-jersey</artifactId>
         </dependency>
 	</dependencies>
 
