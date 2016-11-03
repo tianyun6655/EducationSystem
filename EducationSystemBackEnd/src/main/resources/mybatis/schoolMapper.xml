@@ -3,7 +3,7 @@
 <mapper namespace="com.education.mapper.SchoolMapper">
 
 <select id="getSchoolAndAddressList" resultType="com.education.bean.SchoolAndAddress" >
-  select a.name, a.school_type  as schoolType, b.aid,b.province,b.road,b.qu,b.city,b.type
+  select a.sid, a.name, a.school_type  as schoolType, b.aid,b.province,b.road,b.qu,b.city,b.type
   from tb_school as a inner join tb_address as b on a.aid = b.aid
 </select>
 </mapper>

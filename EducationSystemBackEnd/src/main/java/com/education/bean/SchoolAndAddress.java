@@ -1,6 +1,8 @@
 package com.education.bean;
 
 public class SchoolAndAddress {
+	private int sid;
+	
    private String name;
    private int schoolType;
    private int aid;
@@ -56,6 +58,13 @@ public int getType() {
 }
 public void setType(int type) {
 	this.type = type;
+}
+
+public int getSid() {
+	return sid;
+}
+public void setSid(int sid) {
+	this.sid = sid;
 }
 @Override
 public String toString() {

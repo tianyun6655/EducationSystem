@@ -36,12 +36,13 @@ public class SchoolController {
 			 JSONArray jsonArray = new JSONArray();
 			 for (int i = 0; i < list.size(); i++) {
 				JSONObject single = new JSONObject();
+				single.put("sid",list.get(i).getSid());
 				single.put("name",list.get(i).getName());
 				single.put("schoolType",list.get(i).getSchoolType());
 				single.put("province", list.get(i).getProvince());
 				single.put("qu", list.get(i).getQu());
 				single.put("city", list.get(i).getCity());
-				single.put("rode", list.get(i).getRoad());
+				single.put("road", list.get(i).getRoad());
 				jsonArray.add(single);
 			}
 			 jsonObject.put("data", jsonArray);
@@ -65,7 +66,6 @@ public class SchoolController {
 	public void test(HttpServletRequest request,HttpServletResponse response){
 		System.out.println("hello");
 	}
-	
 //--------------------------------------Get测试---------------------------------------------------------
 	
 
