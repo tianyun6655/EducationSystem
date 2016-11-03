@@ -35,15 +35,12 @@ public class SysController {
 		JSONObject jsonObject = new JSONObject();
         String mobile  = request.getParameter("mobile");
         String password  =  request.getParameter("password");
-	    String appSign = request.getParameter("sign");
+	 //   String appSign = request.getParameter("sign");
 	//    String timeStamp = request.getParameter("time_stamp");
 	  //  String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);    
-
+        
         Teacher teacher = teacherService.getTeacherByMobile(mobile);// 框架
-        if(!appSign.equals("123")){
-        	jsonObject.put("code",-1);
-
-        }else{
+      
         if(teacher==null||!(teacher.getPassword().equals(password))){
         	jsonObject.put("code",0);
         }else{
@@ -57,7 +54,7 @@ public class SysController {
         	teachJson.put("name", teacher.getName());
         	jsonObject.put("teacher", teachJson);
         }
-       }
+       
         try {
 			response.getWriter().write(jsonObject.toString());
             response.getWriter().close();

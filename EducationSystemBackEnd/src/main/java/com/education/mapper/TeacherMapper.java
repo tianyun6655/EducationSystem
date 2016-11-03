@@ -10,4 +10,6 @@ public interface TeacherMapper {
    public Teacher getTeacherByMobile(String mobile);
    public List<Teacher> getTeacherList(int cid);
    public int updateTeacher(Teacher teacher);
+   public boolean  checkDuplicate(Teacher teacher);
+   
 }
