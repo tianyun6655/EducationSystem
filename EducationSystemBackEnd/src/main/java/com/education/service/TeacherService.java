@@ -17,11 +17,25 @@ public class TeacherService {
 	TeacherMapper teacherMapper;
 	
 
-	public int signUpForTeacher(Teacher teacher,int cid){
+	public int signUpForTeacher(Teacher teacher,String[] cids){
 		//需要添加检查手机号有没有重复
-		teacherMapper.signUpForTeacher(teacher);
-		teacherMapper.bindClass(teacher.getTid(), cid);
-		return teacher.getTid();
+		int result =-1;
+		Teacher tempteacher = teacherMapper.getTeacherByMobile(teacher.getMobile());
+		if(tempteacher==null){
+			teacherMapper.signUpForTeacher(tempteacher);
+		for(String cid : cids )
+		{
+			int tempCid = Integer.parseInt(cid);
+			teacherMapper.bindClass(teacher.getTid(), tempCid);
+		}
+			result=teacher.getTid();
+		}else{
+			result=0;
+		}
+		
+		
+		//
+		return result;
 	}
 	
 	public Teacher getTeacherByMobile(String mobile) {

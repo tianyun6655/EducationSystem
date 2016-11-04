@@ -1,4 +1,7 @@
 package com.education.controller;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,189 +17,250 @@ import com.education.service.TeacherService;
 import com.education.untils.FinalValues;
 import com.education.untils.SHA1Util;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 
 /**
  * 
- * @author tianyun chen
- * 有关登录的class，包括登录，注册
+ * @author tianyun chen 有关登录的class，包括登录，注册
  */
 @Controller
 @RequestMapping("api/sys")
 public class SysController {
 	@Autowired
 	TeacherService teacherService;
-	
-	
-	//TODO 老师登录
-	@RequestMapping(value="login_as_teacher",method = RequestMethod.POST)// 加请求方法
-	public void loginAsTeacher(HttpServletRequest request,HttpServletResponse response){
+
+	// TODO 老师登录
+	@RequestMapping(value = "login_as_teacher", method = RequestMethod.POST) // 加请求方法
+	public void loginAsTeacher(HttpServletRequest request, HttpServletResponse response) {
 		JSONObject jsonObject = new JSONObject();
-        String mobile  = request.getParameter("mobile");
-        String password  =  request.getParameter("password");
-	 //   String appSign = request.getParameter("sign");
-	//    String timeStamp = request.getParameter("time_stamp");
-	  //  String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);    
-        
-        Teacher teacher = teacherService.getTeacherByMobile(mobile);// 框架
-      
-        if(teacher==null||!(teacher.getPassword().equals(password))){
-        	jsonObject.put("code",0);
-        }else{
-        	jsonObject.put("code",1);
-        	JSONObject teachJson = new JSONObject();
-        	teachJson.put("mobile", teacher.getMobile());
-        	teachJson.put("tie", teacher.getTid());
-        	teachJson.put("password", teacher.getPassword());
-        	teachJson.put("status",teacher.getStatus());
-        	teachJson.put("classAdviser",teacher.getClassAdviser());
-        	teachJson.put("name", teacher.getName());
-        	jsonObject.put("teacher", teachJson);
-        }
-       
-        try {
+		String mobile = request.getParameter("mobile");
+		String password = request.getParameter("password");
+		// String appSign = request.getParameter("sign");
+		// String timeStamp = request.getParameter("time_stamp");
+		// String sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);
+
+		Teacher teacher = teacherService.getTeacherByMobile(mobile);// 框架
+
+		if (teacher == null || !(teacher.getPassword().equals(password))) {
+			jsonObject.put("code", 0);
+		} else {
+			jsonObject.put("code", 1);
+			JSONObject teachJson = new JSONObject();
+			teachJson.put("mobile", teacher.getMobile());
+			teachJson.put("tie", teacher.getTid());
+			teachJson.put("password", teacher.getPassword());
+			teachJson.put("status", teacher.getStatus());
+			teachJson.put("classAdviser", teacher.getClassAdviser());
+			teachJson.put("name", teacher.getName());
+			jsonObject.put("teacher", teachJson);
+		}
+
+		try {
 			response.getWriter().write(jsonObject.toString());
-            response.getWriter().close();
+			response.getWriter().close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	  
+
 	}
-	
-	//TODO 家长登录
-	@RequestMapping(value="login_as_parent",method = RequestMethod.POST)
-	public void loginAsPartent(HttpServletRequest request,HttpServletResponse response){
-		
+
+	// TODO 家长登录
+	@RequestMapping(value = "login_as_parent", method = RequestMethod.POST)
+	public void loginAsPartent(HttpServletRequest request, HttpServletResponse response) {
+
 	}
-	
-	//TODO 老师注册
-	@RequestMapping(value="sign_as_teacher",method = RequestMethod.POST)
-	public void signUpAsTeacher(HttpServletRequest request,HttpServletResponse response){
-        JSONObject jsonObject = new JSONObject();
-		String appSign = request.getParameter("sign");
-	    String timeStamp = request.getParameter("time_stamp");
+
+	// TODO 老师注册
+	@RequestMapping(value = "sign_as_teacher", method = RequestMethod.POST)
+	public void signUpAsTeacher(HttpServletRequest request, HttpServletResponse response) {
+//		JSONObject jsonObject = new JSONObject();
+//		String appSign = request.getParameter("sign");
+//		String timeStamp = request.getParameter("time_stamp");
+//		String name = request.getParameter("name");
+//		String password = request.getParameter("password");
+//		String mobile = request.getParameter("mobile");
+//		int cid = Integer.parseInt(request.getParameter("cid"));
+//		int status = Integer.parseInt(request.getParameter("status"));
+//		int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
+//		String sign = SHA1Util.hex_sha1(timeStamp + FinalValues.PUBLIC_KEY);
+//		Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
+//
+//		if (!appSign.equals(sign)) {
+//			jsonObject.put("code", -1);
+//		} else {
+//			int result = teacherService.signUpForTeacher(tempTeacher, cid);
+//			System.out.println(result);
+//			if (result == 0) {
+//				jsonObject.put("code", 0);
+//			} else {
+//				jsonObject.put("code", 1);
+//				jsonObject.put("tid", tempTeacher.getTid());
+//			}
+//		}
+//		try {
+//			response.getWriter().write(jsonObject.toString());
+//			response.getWriter().close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	
+		JSONObject jsonObject = new JSONObject();
+		//String appSign = request.getParameter("sign");
+		// String timeStamp = request.getParameter("time_stamp");
 		String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String mobile = request.getParameter("mobile");
-        int cid = Integer.parseInt(request.getParameter("cid"));
-        int status = Integer.parseInt(request.getParameter("status"));
-        int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
-	    String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);        
-        Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
-
-        if(!appSign.equals(sign)){
-        	jsonObject.put("code",-1);
-        }else{
-            int result = teacherService.signUpForTeacher(tempTeacher, cid);
-        	System.out.println(result);
-            if(result==0){
-        		jsonObject.put("code",0);
-        	}else{
-        		jsonObject.put("code",1);
-        		jsonObject.put("tid",tempTeacher.getTid());
-        	}
-        }
-        try {
-			response.getWriter().write(jsonObject.toString());
-	        response.getWriter().close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String password = request.getParameter("password");
+		String mobile = request.getParameter("mobile");
+		//int cid = Integer.parseInt(request.getParameter("cid"));
+		String classes = request.getParameter("class");
+		JSONArray cids = JSONArray.fromObject(classes);
+		int size = cids.size();
+		String[] eachCid = new String[size];
+		for(int i=0;i<size;i++)
+		{
+			eachCid[i]= cids.getJSONObject(i).getString("cid");
 		}
-	}
-	
-	//TODO 家长登录
-	@RequestMapping(value="sign_as_parent",method = RequestMethod.POST)
-	public void signUpAsParent(HttpServletRequest request,HttpServletResponse response){
-		
-	}
-	
-	private Teacher initTeacher(String name,String password,String mobile,int status,int classAdviser){
-		 Teacher teacher = new Teacher();
-		 teacher.setName(name);
-		 teacher.setPassword(password);
-		 teacher.setMobile(mobile);
-		 teacher.setMobile(mobile);
-		 teacher.setStatus(status);
-		 teacher.setClassAdviser(classAdviser);
-		 return teacher;
-	}
-	
-	//-------------------------------GET 测试-------------------------------
-	
-	
-	
-	//TODO 老师注册 get测试
-	@RequestMapping(value="sign_as_teacher",method = RequestMethod.GET)
-	public void signUpAsTeacher_get(HttpServletRequest request,HttpServletResponse response){
-        JSONObject jsonObject = new JSONObject();
-		String appSign = request.getParameter("sign");
-	    //String timeStamp = request.getParameter("time_stamp");
-		String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String mobile = request.getParameter("mobile");
-        int cid = Integer.parseInt(request.getParameter("cid"));
-        int status = Integer.parseInt(request.getParameter("status"));
-        int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
-	    //  String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);        
-        Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
-        
-        if(!appSign.equals("123")){
-        	jsonObject.put("code",-1);
-        }else{
-            int result = teacherService.signUpForTeacher(tempTeacher, cid);
-        	System.out.println(result);
-            if(result==0){
-        		jsonObject.put("code",0);
-        	}else{
-        		jsonObject.put("code",1);
-        		jsonObject.put("tid",tempTeacher.getTid());
-        	}
-        }
-        try {
-			response.getWriter().write(jsonObject.toString());
-	        response.getWriter().close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	//TODO 老师登录Get
-		@RequestMapping(value="login_as_teacher",method = RequestMethod.GET)
-		public void loginAsTeacherGet(HttpServletRequest request,HttpServletResponse response){
-	        JSONObject jsonObject = new JSONObject();
-            String mobile  = request.getParameter("mobile");
-            String password  =  request.getParameter("password");
-            Teacher teacher = teacherService.getTeacherByMobile(mobile);
-            if(teacher==null||!(teacher.getPassword().equals(password))){
-            	jsonObject.put("code",0);
-            }else{
-            	jsonObject.put("code",1);
-            	JSONObject teachJson = new JSONObject();
-            	teachJson.put("mobile", teacher.getMobile());
-            	teachJson.put("tie", teacher.getTid());
-            	teachJson.put("password", teacher.getPassword());
-            	teachJson.put("status",teacher.getStatus());
-            	teachJson.put("classAdviser",teacher.getClassAdviser());
-            	teachJson.put("name", teacher.getName());
-            	jsonObject.put("teacher", teachJson);
-            }
-                
-            try {
-				response.getWriter().write(jsonObject.toString());
-	            response.getWriter().close();
+		int status = Integer.parseInt(request.getParameter("status"));
+		int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
+		// String sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);
+		Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			int result = teacherService.signUpForTeacher(tempTeacher, eachCid);
+			System.out.println(result);
+			if (result == 0) {
+				jsonObject.put("code", 0);
+			} else {
+				jsonObject.put("code", 1);
+				jsonObject.put("tid", tempTeacher.getTid());
 			}
-            
+		
+		try {
+			response.getWriter().write(jsonObject.toString());
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+	}
+	}
+
+	// TODO 家长登录
+	@RequestMapping(value = "sign_as_parent", method = RequestMethod.POST)
+	public void signUpAsParent(HttpServletRequest request, HttpServletResponse response) {
+
+	}
+
+	private Teacher initTeacher(String name, String password, String mobile, int status, int classAdviser) {
+		Teacher teacher = new Teacher();
+		teacher.setName(name);
+		teacher.setPassword(password);
+		teacher.setMobile(mobile);
+		teacher.setMobile(mobile);
+		teacher.setStatus(status);
+		teacher.setClassAdviser(classAdviser);
+		return teacher;
+	}
+
+	// -------------------------------GET 测试-------------------------------
+
+	// TODO 老师注册 get测试
+	@RequestMapping(value = "sign_as_teacher", method = RequestMethod.GET)
+	public void signUpAsTeacher_get(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject jsonObject = new JSONObject();
+		//String appSign = request.getParameter("sign");
+		// String timeStamp = request.getParameter("time_stamp");
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		String mobile = request.getParameter("mobile");
+		//int cid = Integer.parseInt(request.getParameter("cid"));
+		String classes = request.getParameter("class");
+		JSONArray cids = JSONArray.fromObject(classes);
+		int size = cids.size();
+		String[] eachCid = new String[size];
+		for(int i=0;i<size;i++)
+		{
+			eachCid[i]= cids.getJSONObject(i).getString("cid");
 		}
-	
-	
-	
+		int status = Integer.parseInt(request.getParameter("status"));
+		int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
+		// String sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);
+		Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
+
+			int result = teacherService.signUpForTeacher(tempTeacher, eachCid);
+			System.out.println(result);
+			if (result == 0) {
+				jsonObject.put("code", 0);
+			} else {
+				jsonObject.put("code", 1);
+				jsonObject.put("tid", tempTeacher.getTid());
+			}
+		
+		try {
+			response.getWriter().write(jsonObject.toString());
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// TODO 老师登录Get
+	@RequestMapping(value = "login_as_teacher", method = RequestMethod.GET)
+	public void loginAsTeacherGet(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject jsonObject = new JSONObject();
+		String mobile = request.getParameter("mobile");
+		String password = request.getParameter("password");
+		Teacher teacher = teacherService.getTeacherByMobile(mobile);
+		if (teacher == null || !(teacher.getPassword().equals(password))) {
+			jsonObject.put("code", 0);
+		} else {
+			jsonObject.put("code", 1);
+			JSONObject teachJson = new JSONObject();
+			teachJson.put("mobile", teacher.getMobile());
+			teachJson.put("tid", teacher.getTid());
+			teachJson.put("password", teacher.getPassword());
+			teachJson.put("status", teacher.getStatus());
+			teachJson.put("classAdviser", teacher.getClassAdviser());
+			teachJson.put("name", teacher.getName());
+			jsonObject.put("teacher", teachJson);
+		}
+
+		try {
+			response.getWriter().write(jsonObject.toString());
+			response.getWriter().close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	@RequestMapping(value = "sign", method = RequestMethod.GET)
+	public void testTraversToStrin()
+	{
+		//---------------------------test----------------------------------------------
+		JSONArray arrayC = new JSONArray();
+		JSONObject ob = new JSONObject();
+		for(int i=1; i<5;i++)
+		{
+			JSONObject temp = new JSONObject();
+			temp.put("cid", i);
+			arrayC.add(temp);
+		}
+	//	ob.put("class", arrayC);
+	//	String test=ob.toString();
+		//JSONArray outPut = JSONArray.fromObject(test);
+		System.out.println(arrayC.toString());
+		JSONArray jsonArray1 = JSONArray.fromObject(arrayC.toString());
+		System.out.println(jsonArray1.size());
+		int  cid = jsonArray1.getJSONObject(1).getInt("cid");
+		System.out.println(cid+"sadfas");
+
+		
+
+	}
+
 }
