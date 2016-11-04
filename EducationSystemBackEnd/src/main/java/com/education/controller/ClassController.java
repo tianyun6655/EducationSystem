@@ -28,7 +28,7 @@ public class ClassController {
 	 * 
 	 * @param request
 	 * @param response
-	 *            request；sid 学校主键 respon： return array of class
+	 *  request；sid 学校主键 respon： return array of class
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "list", method = RequestMethod.POST)
