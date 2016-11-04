@@ -9,6 +9,7 @@ public class Teacher {
    private int classAdviser;
    private String createTime;
    private String updateTime;
+  
 public int getTid() {
 	return tid;
 }

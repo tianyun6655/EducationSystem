@@ -22,11 +22,11 @@
    </select>
    
    <select id="getTeacherList" parameterType="int" resultType="com.education.bean.Teacher">
-     select t.name,t.mobile,t.class_adviser as classAdviser from tb_teacher as t 
-     inner join tb_teacher_class as c on t.tid = c.tid
+     select t.name,t.mobile,t.class_adviser as classAdviser 
+     from tb_teacher as t inner join tb_teacher_class as c on t.tid = c.tid
      where c.cid = #{cid} 
-      
    </select>
+   
    <update id="updateTeacher"  parameterType="com.education.bean.Teacher" >
      update tb_teacher set mobile=#{mobile}, password=#{password}, name=#{name}, class_adviser =#{classAdviser}
      where tid=#{tid};
