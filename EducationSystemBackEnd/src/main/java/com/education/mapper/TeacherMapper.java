@@ -12,4 +12,5 @@ public interface TeacherMapper {
    public int updateTeacher(Teacher teacher);
    public boolean  checkDuplicate(Teacher teacher);
    
+   
 }
