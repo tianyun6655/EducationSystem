@@ -23,7 +23,8 @@ public class TeacherService
 		int result =-1;
 		Teacher tempteacher = teacherMapper.getTeacherByMobile(teacher.getMobile());
 		if(tempteacher==null){
-			teacherMapper.signUpForTeacher(tempteacher);
+			teacherMapper.signUpForTeacher(teacher);
+			System.out.println(teacher.getName()+" name");
 		for(String cid : cids )
 		{
 			int tempCid = Integer.parseInt(cid);
