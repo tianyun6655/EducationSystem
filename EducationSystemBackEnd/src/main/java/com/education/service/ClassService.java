@@ -16,8 +16,13 @@ public class ClassService {
 	
 	public  List<Class> getSchoolClassList(int sid) {
 		return classMapper.getClassList(sid);
-		
 	}
+	
+	public  List<Class> getTeacherClassList(int tid) {
+		return classMapper.getTeacherClassList(tid);
+	}
+	
+	
 }
 
 

@@ -74,7 +74,7 @@ public class SysController {
         String mobile  = request.getParameter("mobile");
         String password  =  request.getParameter("password");
         Parent parent = parentService.getParentByMobile(mobile);// 框架
-      
+      //----test:      System.out.println("mobile" + mobile);
         if(parent==null||!(parent.getPassword().equals(password))){
         	jsonObject.put("code",0);
         }else{
