@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.education.mapper.ClassMapper">
+
 <select id="getClassList" parameterType="int" resultType="com.education.bean.Class" >
-select a.cid,a.grade, a.`no` from tb_class_school as b inner
- join tb_class as a on a.cid = b.cid 
- where b.sid = #{sid} 
+select a.cid,a.grade, a.`no` 
+from tb_class_school as b inner join tb_class as a on a.cid = b.cid 
+Where b.sid = #{sid} 
 </select>
+
+<select id="getTeacherClassList" parameterType="int" resultType="com.education.bean.Class" >
+select a.cid,a.grade, a.`no` 
+from tb_teacher_class as b inner join tb_class as a on a.cid = b.cid 
+Where b.tid = #{tid} 
+</select>
+
+
 </mapper>
