@@ -1,5 +1,8 @@
 package com.education.mapper;
 
-public interface StudentMapper {
+import com.education.bean.Student;
 
+public interface StudentMapper {
+  
+	public void createStudent(Student student);
 }
