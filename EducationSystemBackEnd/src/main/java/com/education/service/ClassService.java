@@ -22,7 +22,9 @@ public class ClassService {
 		return classMapper.getTeacherClassList(tid);
 	}
 	
-	
+	public  List<Class> getParentClassList(int pid) {
+		return classMapper.getParentClassList(pid);
+	}
 }
 
 

@@ -14,5 +14,10 @@ from tb_teacher_class as b inner join tb_class as a on a.cid = b.cid
 Where b.tid = #{tid} 
 </select>
 
+<select id="getParentClassList" parameterType="int" resultType="com.education.bean.Class" >
+select a.cid,a.grade, a.`no` 
+from tb_parent_class as b inner join tb_class as a on a.cid = b.cid 
+Where b.pid = #{pid} 
+</select>
 
 </mapper>

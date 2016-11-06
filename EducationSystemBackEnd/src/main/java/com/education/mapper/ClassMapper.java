@@ -9,8 +9,7 @@ public interface ClassMapper {
 	
 	public  List<Class> getTeacherClassList(int tid);
 	
-	
-	
+	public  List<Class> getParentClassList(int pid);
 	
 	
 }

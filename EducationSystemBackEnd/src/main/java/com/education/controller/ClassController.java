@@ -86,6 +86,38 @@ public class ClassController {
 			response.getWriter().write(obj.toString());
 			response.getWriter().close();
 		}
+		
+		 /**
+		 * 获取某个家长所关联的所有班级信息
+		 * @param request
+		 * @param response
+		 * request；pid 家长主键 respon： return array of class given a specific parent
+		 * @throws IOException
+		 */
+		@RequestMapping(value = "parentclasslist", method = RequestMethod.POST)
+		public void getClassInformationGivenASpecificParent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			JSONArray j = new JSONArray();
+			JSONObject obj = new JSONObject();
+			String parentId = request.getParameter("pid");
+			int parent_id = Integer.parseInt(parentId);
+			List<Class> classes = ClassService.getParentClassList(parent_id);
+			if (classes.isEmpty()) {
+				obj.put("code", 0);
+			} else {
+				obj.put("code", 1);
+				for (Class c : classes) {
+					JSONObject eachC = new JSONObject();
+					eachC.put("cid", c.getCid());
+					eachC.put("grade", c.getGrade());
+					eachC.put("no", c.getClassNo());
+					j.add(eachC);
+				}
+				obj.put("data", j);
+			}
+			response.getWriter().write(obj.toString());
+			response.getWriter().close();
+		}
+
 
 	// --------------------------------get------------------------------------------------
 	@RequestMapping(value = "list", method = RequestMethod.GET)
