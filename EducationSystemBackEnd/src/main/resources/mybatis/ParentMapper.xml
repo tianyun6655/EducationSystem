@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.education.mapper.ParentMapper">
-   <insert id="signUpForParent" useGeneratedKeys="true" keyProperty="tid" parameterType="com.education.bean.Parent">
+   <insert id="signUpForParent" useGeneratedKeys="true" keyProperty="pid" parameterType="com.education.bean.Parent">
      insert into tb_parent
      (name,password,mobile,sex,aid,create_time,update_time)
      values

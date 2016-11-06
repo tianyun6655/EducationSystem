@@ -31,6 +31,7 @@ import net.sf.json.JSONObject;
 public class SysController {
 	@Autowired
 	TeacherService teacherService;
+	@Autowired
 	ParentService parentService;
 	
 	
@@ -40,10 +41,7 @@ public class SysController {
 		JSONObject jsonObject = new JSONObject();
 		String mobile = request.getParameter("mobile");
 		String password = request.getParameter("password");
-		// String appSign = request.getParameter("sign");
-		// String timeStamp = request.getParameter("time_stamp");
-		// String sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);
-
+	
 		Teacher teacher = teacherService.getTeacherByMobile(mobile);// 框架
 
 		if (teacher == null || !(teacher.getPassword().equals(password))) {
@@ -54,10 +52,8 @@ public class SysController {
 			teachJson.put("mobile", teacher.getMobile());
 			teachJson.put("tie", teacher.getTid());
 			teachJson.put("password", teacher.getPassword());
-			teachJson.put("status", teacher.getStatus());
-			teachJson.put("classAdviser", teacher.getClassAdviser());
 			teachJson.put("name", teacher.getName());
-			jsonObject.put("teacher", teachJson);
+			jsonObject.put("data", teachJson);
 		}
 
 		try {
@@ -85,7 +81,7 @@ public class SysController {
         	jsonObject.put("code",1);
         	JSONObject parentJson = new JSONObject();
         	parentJson.put("mobile", parent.getMobile());
-        	parentJson.put("tie", parent.getPid());
+        	parentJson.put("pid", parent.getPid());
         	parentJson.put("password", parent.getPassword());
         	parentJson.put("sex",parent.getSex());
         	parentJson.put("aid",parent.getAid());
@@ -107,46 +103,15 @@ public class SysController {
 	// TODO 老师注册
 	@RequestMapping(value = "sign_as_teacher", method = RequestMethod.POST)
 	public void signUpAsTeacher(HttpServletRequest request, HttpServletResponse response) {
-//		JSONObject jsonObject = new JSONObject();
-//		String appSign = request.getParameter("sign");
-//		String timeStamp = request.getParameter("time_stamp");
-//		String name = request.getParameter("name");
-//		String password = request.getParameter("password");
-//		String mobile = request.getParameter("mobile");
-//		int cid = Integer.parseInt(request.getParameter("cid"));
-//		int status = Integer.parseInt(request.getParameter("status"));
-//		int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
-//		String sign = SHA1Util.hex_sha1(timeStamp + FinalValues.PUBLIC_KEY);
-//		Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
-//
-//		if (!appSign.equals(sign)) {
-//			jsonObject.put("code", -1);
-//		} else {
-//			int result = teacherService.signUpForTeacher(tempTeacher, cid);
-//			System.out.println(result);
-//			if (result == 0) {
-//				jsonObject.put("code", 0);
-//			} else {
-//				jsonObject.put("code", 1);
-//				jsonObject.put("tid", tempTeacher.getTid());
-//			}
-//		}
-//		try {
-//			response.getWriter().write(jsonObject.toString());
-//			response.getWriter().close();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
+
+	
 		JSONObject jsonObject = new JSONObject();
-		//String appSign = request.getParameter("sign");
-		// String timeStamp = request.getParameter("time_stamp");
+
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String mobile = request.getParameter("mobile");
-		//int cid = Integer.parseInt(request.getParameter("cid"));
 		String classes = request.getParameter("class");
+		System.out.println("name: "+name+"password: "+password+"mobile: "+mobile+"classes: "+classes);
 		JSONArray cids = JSONArray.fromObject(classes);
 		int size = cids.size();
 		String[] eachCid = new String[size];
@@ -154,10 +119,7 @@ public class SysController {
 		{
 			eachCid[i]= cids.getJSONObject(i).getString("cid");
 		}
-		int status = Integer.parseInt(request.getParameter("status"));
-		int classAdviser = Integer.parseInt(request.getParameter("classAdviser"));
-		// String sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);
-		Teacher tempTeacher = initTeacher(name, password, mobile, status, classAdviser);
+		Teacher tempTeacher = initTeacher(name, password, mobile, 1, 0);
 
 			int result = teacherService.signUpForTeacher(tempTeacher, eachCid);
 			System.out.println(result);
@@ -181,15 +143,12 @@ public class SysController {
 	@RequestMapping(value="sign_as_parent",method = RequestMethod.POST)
 	public void signUpAsParent(HttpServletRequest request,HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
-		String appSign = request.getParameter("sign");
-	    String timeStamp = request.getParameter("time_stamp");
+	
 		String name = request.getParameter("name");
         String password = request.getParameter("password");
         String mobile = request.getParameter("mobile");
-        int sex = Integer.parseInt(request.getParameter("sex"));
-        int aid = Integer.parseInt(request.getParameter("aid"));
-	 //   String  sign = SHA1Util.hex_sha1(timeStamp+FinalValues.PUBLIC_KEY);        
-        Parent tempParent = initParent(name, password, mobile, sex, aid);
+  
+        Parent tempParent = initParent(name, password, mobile, 1, 0);
 
     
             int result = parentService.signUpForParent(tempParent);
@@ -215,7 +174,6 @@ public class SysController {
 		 parent.setName(name);
 		 parent.setPassword(password);
 		 parent.setMobile(mobile);
-		 parent.setMobile(mobile);
 		 parent.setSex(sex);
 		 parent.setAid(aid);
 		 return parent;
@@ -230,7 +188,6 @@ public class SysController {
 		Teacher teacher = new Teacher();
 		teacher.setName(name);
 		teacher.setPassword(password);
-		teacher.setMobile(mobile);
 		teacher.setMobile(mobile);
 		teacher.setStatus(status);
 		teacher.setClassAdviser(classAdviser);
