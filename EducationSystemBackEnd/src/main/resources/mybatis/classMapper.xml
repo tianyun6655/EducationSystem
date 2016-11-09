@@ -19,5 +19,10 @@ select a.cid,a.grade, a.`no`
 from tb_parent_class as b inner join tb_class as a on a.cid = b.cid 
 Where b.pid = #{pid} 
 </select>
-
+<select id="getClassByToeken" parameterType="String" resultType="com.education.bean.ClassAndSchool">
+ select t.name,c.grade,c.no from tb_class as c 
+        inner join tb_class_school as cs on c.cid = cs.cid
+        inner join tb_school as t on cs.sid = t.sid
+        where c.token = #{token}
+</select>
 </mapper>
