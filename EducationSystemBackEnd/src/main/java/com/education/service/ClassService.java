@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.education.mapper.ClassMapper;
 import com.education.bean.Class;
+import com.education.bean.ClassAndSchool;
 @Service
 @Transactional
 public class ClassService {
@@ -24,6 +25,11 @@ public class ClassService {
 	
 	public  List<Class> getParentClassList(int pid) {
 		return classMapper.getParentClassList(pid);
+	}
+	
+	public ClassAndSchool getClassByToeken(String token){
+		return classMapper.getClassByToeken(token);
+		
 	}
 }
 
