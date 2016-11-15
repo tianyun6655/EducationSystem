@@ -1,11 +1,5 @@
 package com.education.bean;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
-import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.steps.idSeekLeafPlanner;
-
-import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
-
 public class Student {
   private int stid;
   private int studentId;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.mapper.AnnouncementMapper">
+  <insert id="createAnnouncement" useGeneratedKeys="true" keyProperty="anid" parameterType="com.education.bean.Announcement">
+    insert into tb_announcement
+    (title,content,date)
+    values
+    (#{title},#{content},#{date})
+  </insert>
+  
+  <insert id="bandClass" >
+    insert into tb_announcement_class
+    (cid,anid)
+    values
+    (#{0},#{1})
+  </insert>
+  
+  <insert id="bandTeacher">
+  insert into tb_announcement_teacher
+  (tid,anid)
+  values
+  (#{0},#{1})
+  </insert>
+  
+  <select id="getAnnouncementByClass" parameterType="int" resultType="com.education.bean.Announcement">
+   select a.title,a.content,a.date from tb_announcement as a inner join tb_announcement_class as b
+   on a.anid = b.anid where b.cid = #{cid}
+  </select>
+</mapper>
