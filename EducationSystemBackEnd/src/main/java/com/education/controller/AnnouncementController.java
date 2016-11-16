@@ -1,7 +1,5 @@
 package com.education.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.thymeleaf.context.ForbiddenContextVariableRestriction;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.education.bean.Announcement;
 import com.education.service.AnnouncementService;
 
-import javassist.expr.NewArray;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -47,7 +44,7 @@ public class AnnouncementController {
 		System.out.println(title+content+date.toString());
 	}
 	
-	@RequestMapping("listbyclass")
+	@RequestMapping(value="listbyclass",method=RequestMethod.POST)
 	public void getAnnouncementByClass(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		int cid  =Integer.parseInt(request.getParameter("cid"));
 		List<Announcement> announcements = announcementService.getListByClass(cid);
