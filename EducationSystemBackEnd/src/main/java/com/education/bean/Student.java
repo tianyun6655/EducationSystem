@@ -3,7 +3,7 @@ package com.education.bean;
 public class Student {
   private int stid;
   private int studentId;
-  private int age;
+  private String birthday;
   private String name;
 public int getStid() {
 	return stid;
@@ -17,11 +17,12 @@ public int getStudentId() {
 public void setStudentId(int studentId) {
 	this.studentId = studentId;
 }
-public int getAge() {
-	return age;
+
+public String getBirthday() {
+	return birthday;
 }
-public void setAge(int age) {
-	this.age = age;
+public void setbBirthday(String birthday) {
+	this.birthday = birthday;
 }
 public String getName() {
 	return name;

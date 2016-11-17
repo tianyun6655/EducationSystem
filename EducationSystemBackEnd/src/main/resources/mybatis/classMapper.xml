@@ -25,4 +25,15 @@ Where b.pid = #{pid}
         inner join tb_school as t on cs.sid = t.sid
         where c.token = #{token}
 </select>
+
+<select id="getClassAndSchoolByCid" parameterType="int" resultType="com.education.bean.ClassAndSchool">
+  select t.name,c.grade,c.no from tb_class as c 
+        inner join tb_class_school as cs on c.cid = cs.cid
+        inner join tb_school as t on cs.sid = t.sid
+        where c.cid = #{cid}
+</select>
+
+<select id="getCidByStid" parameterType="int" resultType="int">
+  select cid  from tb_student_class where stid=#{stid}
+</select>
 </mapper>

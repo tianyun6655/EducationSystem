@@ -8,6 +8,15 @@
      values
      (#{name},#{age},#{studentId})
    </insert>
+   <select id="getStudentByStid"  resultType="com.education.bean.Student" parameterType="int">
+     select name,birthday,student_id as studentId from tb_student where stid = #{stid}
+   </select>
+   
+   
+   <select id="getStidByPid" parameterType="int" resultType="com.education.bean.Student">
+   select a.stid,a.name from tb_parent_student as b inner join tb_student as a on a.stid = b.stid
+   where b.pid = #{pid}
+   </select>
 </mapper>
 
 

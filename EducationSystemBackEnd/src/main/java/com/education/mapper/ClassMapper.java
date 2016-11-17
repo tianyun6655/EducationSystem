@@ -14,5 +14,8 @@ public interface ClassMapper {
 	
     public ClassAndSchool getClassByToeken(String token);
     
+	public ClassAndSchool  getClassAndSchoolByCid(int stid);
+	
+	public int getCidByStid(int stid);
 	
 }
