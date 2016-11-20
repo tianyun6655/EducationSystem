@@ -58,6 +58,7 @@ public class AnnouncementController {
 		    singleJson.put("date", simpleDateFormat.format(announcements.get(i).getDate()));
 		    jsonArray.add(singleJson);
 		}
+		   resultJson.put("code", 1);
            resultJson.put("data", jsonArray);
            
            

@@ -25,5 +25,17 @@
      update tb_parent set mobile=#{mobile}, password=#{password}, name=#{name}, sex =#{sex}, aid =#{aid}
      where pid=#{pid};
    </update>
+  
+  <insert id="bandClass" parameterType="int">
+   insert into tb_parent_class
+   (pid,cid)
+   values
+   (#{0},#{1})
+  </insert>
+  
+  <select id="getParentsByCid" parameterType="int" resultType="com.education.bean.Parent">
+  select a.name,a.pid from tb_parent as a inner join tb_parent_class as b on a.pid=b.pid
+  where b.cid = #{cid}
+  </select>
    
 </mapper>

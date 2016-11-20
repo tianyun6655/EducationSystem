@@ -35,4 +35,11 @@ public class ParentService
 	{
 		return parentMapper.updateParent(parent);
 	}
+	public int bandClass(int pid,int cid){
+		return parentMapper.bandClass(pid, cid);
+	}
+	
+	public List<Parent> getParentsByCid(int cid){
+		return parentMapper.getParentsByCid(cid);
+	}
 }

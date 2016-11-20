@@ -31,4 +31,9 @@
      update tb_teacher set mobile=#{mobile}, password=#{password}, name=#{name}, class_adviser =#{classAdviser}
      where tid=#{tid};
    </update>
+   
+   <select id="getTeachersByCid" parameterType="int" resultType="com.education.bean.Teacher">
+    select a.name,a.tid from tb_teacher as a inner join tb_teacher_class as b on a.tid = b.tid where 
+    b.cid = #{cid}
+   </select>
 </mapper>

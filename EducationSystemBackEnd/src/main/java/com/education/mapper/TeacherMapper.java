@@ -14,5 +14,5 @@ public interface TeacherMapper {
    
    public boolean  checkDuplicate(Teacher teacher);
    
-   
+   public List<Teacher> getTeachersByCid(int cid);
 }

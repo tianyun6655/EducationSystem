@@ -14,8 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.education.bean.Class;
 import com.education.bean.ClassAndSchool;
+import com.education.bean.Parent;
+import com.education.bean.Teacher;
 import com.education.service.ClassService;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 
+import javassist.expr.NewArray;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -140,6 +146,41 @@ public class ClassController {
 		
 		response.getWriter().write(jsonObject.toString());
 		response.getWriter().close();
+	}
+	
+	@RequestMapping(value="getNumbersFromCid",method=RequestMethod.POST)
+	public void getNumberFromCid(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		int cid = Integer.parseInt(request.getParameter("cid"));
+		JSONObject result = new JSONObject();
+		List[] datas = classService.getNumbersFromCid(cid);
+		List<Teacher> teachers = datas[1];
+		List<Parent> parents = datas[0];
+		result.put("code", 1);
+		JSONArray teacherArray  = new JSONArray();
+		for(int i =0;i<teachers.size();i++){
+			JSONObject eachTeacher = new JSONObject();
+			eachTeacher.put("name", teachers.get(i).getName());
+			eachTeacher.put("tid", teachers.get(i).getTid());
+			teacherArray.add(eachTeacher);
+		}
+		JSONObject teacherData = new JSONObject();
+		teacherData.put("teacher", teacherArray);
+		JSONArray parentArray = new JSONArray();
+		for(int i =0;i<parents.size();i++){
+			JSONObject eacherParent = new JSONObject();
+			eacherParent.put("name", parents.get(i).getName());
+			eacherParent.put("pid", parents.get(i).getPid());
+			parentArray.add(eacherParent);
+		}
+     	JSONObject parentData = new JSONObject();
+		parentData.put("parent", parentArray);
+	    JSONArray datarray = new JSONArray();
+	    datarray.add(parentData);
+	    datarray.add(teacherData);
+	    result.put("data", datarray);
+	    
+	    response.getWriter().write(result.toString());
+	    response.getWriter().close();
 	}
 		
 	// --------------------------------get------------------------------------------------

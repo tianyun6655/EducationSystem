@@ -139,10 +139,11 @@ public class StudentController {
 		JSONObject resultJson = new JSONObject();
 	     int stid = Integer.parseInt(request.getParameter("stid"));
 	     int pid =Integer.parseInt(request.getParameter("pid"));
+	     int cid =Integer.parseInt(request.getParameter("cid"));
 	     if(stid==0||pid==0){
 	    	 resultJson.put("code", -1);
 	     }else{
-	    	 studentService.bandParent(stid, pid);
+	    	 studentService.bandParent(stid, pid,cid);
 	    	 resultJson.put("code", -1);
 	     }
 	     response.getWriter().write(resultJson.toString());
