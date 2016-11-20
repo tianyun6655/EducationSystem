@@ -83,7 +83,6 @@ public class SysController {
         	parentJson.put("mobile", parent.getMobile());
         	parentJson.put("pid", parent.getPid());
         	parentJson.put("password", parent.getPassword());
-        	parentJson.put("sex",parent.getSex());
         	parentJson.put("aid",parent.getAid());
         	parentJson.put("name", parent.getName());
         	jsonObject.put("data", parentJson);

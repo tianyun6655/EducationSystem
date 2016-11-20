@@ -1,6 +1,7 @@
 package com.education.controller;
 
 import java.io.IOException;
+import java.lang.ref.ReferenceQueue;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,6 @@ import com.education.bean.Student;
 import com.education.bean.StudentList;
 import com.education.service.StudentService;
 
-import javassist.expr.NewArray;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -52,7 +52,7 @@ public class StudentController {
 
 	}
    @RequestMapping(value="getStudentbyStid",method=RequestMethod.POST)
-   private void getStudentbysid(HttpServletRequest request,HttpServletResponse response){
+   private void getStudentbysid(HttpServletRequest request,HttpServletResponse response) throws IOException{
          JSONObject result =new JSONObject();
          int stid = Integer.parseInt(request.getParameter("stid"));
          if(stid==0){
@@ -65,9 +65,15 @@ public class StudentController {
         		 data.put("name",tempStudent.getName());
         		 data.put("birthday", tempStudent.getBirthday());
         		 data.put("studentId", tempStudent.getStudentId());
+				 data.put("cid", tempStudent.getCid());
+
+        		 result.put("data", data);
         	 }
          }
+         response.getWriter().write(result.toString());
+         response.getWriter().close();
    }
+   
    @RequestMapping(value="getStduentListByPid",method=RequestMethod.POST)
    public void getStudentByPid(HttpServletRequest request,HttpServletResponse response) throws IOException{
 	   JSONObject result  = new JSONObject();
@@ -98,7 +104,51 @@ public class StudentController {
        response.getWriter().close();
        
    }
+   
+	@RequestMapping(value="getStudentBycid",method=RequestMethod.POST)
+	public void getStudentByCid(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		 int cid = Integer.parseInt(request.getParameter("cid"));
+		 JSONObject resultJson = new JSONObject();
+		 if(cid==0){
+			 resultJson.put("code", -1);
+		 }else{
+			 List<Student> students = studentService.getStudentBycid(cid);
+			 if(students.isEmpty()){
+				 resultJson.put("code", 0);
+			 }else{
+				 JSONArray jArray = new JSONArray();
+				 for(int i =0;i<students.size();i++){
+					 JSONObject signle = new JSONObject();
+					 signle.put("stid",students.get(i).getStid());
+					 signle.put("name", students.get(i).getName());
+					 signle.put("studentId", students.get(i).getStudentId());
+					 jArray.add(signle);
+					 
+				 }
+				 resultJson.put("code", 1);
+				 resultJson.put("data", jArray);
+			 }
+		 }
+		 
+		 response.getWriter().write(resultJson.toString());
+		 response.getWriter().close();
+	}
 	
+	@RequestMapping(value="bandParent", method=RequestMethod.POST)
+	public void bandParent(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		JSONObject resultJson = new JSONObject();
+	     int stid = Integer.parseInt(request.getParameter("stid"));
+	     int pid =Integer.parseInt(request.getParameter("pid"));
+	     if(stid==0||pid==0){
+	    	 resultJson.put("code", -1);
+	     }else{
+	    	 studentService.bandParent(stid, pid);
+	    	 resultJson.put("code", -1);
+	     }
+	     response.getWriter().write(resultJson.toString());
+	     response.getWriter().close();
+	     
+	}
 	private Student initStudent(String name, String birthday, int studentId) {
 		Student student = new Student();
 		student.setName(name);
@@ -106,4 +156,6 @@ public class StudentController {
 		student.setStudentId(studentId);
 		return student;
 	}
+	
+
 }

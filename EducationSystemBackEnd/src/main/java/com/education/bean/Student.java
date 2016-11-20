@@ -5,6 +5,17 @@ public class Student {
   private int studentId;
   private String birthday;
   private String name;
+  private int cid;
+  
+public int getCid() {
+	return cid;
+}
+public void setCid(int cid) {
+	this.cid = cid;
+}
+public void setBirthday(String birthday) {
+	this.birthday = birthday;
+}
 public int getStid() {
 	return stid;
 }

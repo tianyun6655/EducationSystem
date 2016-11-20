@@ -4,14 +4,14 @@
 <mapper namespace="com.education.mapper.ParentMapper">
    <insert id="signUpForParent" useGeneratedKeys="true" keyProperty="pid" parameterType="com.education.bean.Parent">
      insert into tb_parent
-     (name,password,mobile,sex,aid,create_time,update_time)
+     (name,password,mobile,aid,create_time,update_time)
      values
-     (#{name},#{password},#{mobile},#{sex},#{aid},#{createTime},#{updateTime})
+     (#{name},#{password},#{mobile},#{aid},#{createTime},#{updateTime})
    </insert>
    
    
    <select id="getParentByMobile" parameterType="String" resultType="com.education.bean.Parent">
-    select pid,name,password,mobile,sex,aid,create_time as createTime,update_time as updateTime
+    select pid,name,password,mobile,aid,create_time as createTime,update_time as updateTime
     from tb_parent
     where mobile = #{mobile}
    </select>
@@ -25,4 +25,5 @@
      update tb_parent set mobile=#{mobile}, password=#{password}, name=#{name}, sex =#{sex}, aid =#{aid}
      where pid=#{pid};
    </update>
+   
 </mapper>

@@ -4,12 +4,14 @@
 
  <insert id="createStudent" useGeneratedKeys="true" keyProperty="stid" parameterType="com.education.bean.Student">
      insert into tb_student
-     (name,age,student_id)
+     (name,birthday,student_id)
      values
-     (#{name},#{age},#{studentId})
+     (#{name},#{birthday},#{studentId})
    </insert>
    <select id="getStudentByStid"  resultType="com.education.bean.Student" parameterType="int">
-     select name,birthday,student_id as studentId from tb_student where stid = #{stid}
+      select b.cid,a.name,a.birthday,a.student_id as studentId from tb_student as a inner join tb_student_class as b
+      on a.stid= b.stid
+      where a.stid = #{stid}
    </select>
    
    
@@ -17,6 +19,18 @@
    select a.stid,a.name from tb_parent_student as b inner join tb_student as a on a.stid = b.stid
    where b.pid = #{pid}
    </select>
+   
+   <select id="getStudentBycid" parameterType="int" resultType="com.education.bean.Student">
+    select a.stid, a.name,a.student_id as studentId from tb_student as a inner join tb_student_class as b on a.stid=b.stid 
+    where
+    b.cid =#{cid}
+   </select>
+   <insert id="bandParent" parameterType="int">
+      insert into tb_parent_student
+      (stid,pid)
+      values
+      (#{0},#{1})
+   </insert>
 </mapper>
 
 

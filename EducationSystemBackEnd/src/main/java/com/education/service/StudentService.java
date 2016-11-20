@@ -50,4 +50,14 @@ public class StudentService {
 		
 		return result;
 	}
+	
+	public List<Student> getStudentBycid(int cid){
+		return studentMapper.getStudentBycid(cid);
+		
+	}
+	
+	public int bandParent(int stid,int pid){
+		return studentMapper.bandParent(stid, pid);
+		
+	}
 }

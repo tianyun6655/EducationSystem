@@ -39,6 +39,9 @@ public class TeacherService
 		//
 		return result;
 	}
+	public int signUpTeacherWithoutBand(Teacher teacher){
+		return teacherMapper.signUpForTeacher(teacher);
+	}
 	public Teacher getTeacherByMobile(String mobile) 
 	{
 		return teacherMapper.getTeacherByMobile(mobile);

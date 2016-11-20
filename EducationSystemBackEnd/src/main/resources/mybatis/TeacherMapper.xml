@@ -3,9 +3,9 @@
 <mapper namespace="com.education.mapper.TeacherMapper">
    <insert id="signUpForTeacher" useGeneratedKeys="true" keyProperty="tid" parameterType="com.education.bean.Teacher">
      insert into tb_teacher
-     (name,password,mobile,status,class_adviser,create_time,update_time)
+     (name,password,mobile,class_adviser,create_time,update_time)
      values
-     (#{name},#{password},#{mobile},#{status},#{classAdviser},#{createTime},#{updateTime})
+     (#{name},#{password},#{mobile},#{classAdviser},#{createTime},#{updateTime})
    </insert>
    
    <insert id="bindClass" parameterType="int">
