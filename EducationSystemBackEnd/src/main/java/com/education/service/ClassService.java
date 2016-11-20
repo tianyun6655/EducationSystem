@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.education.mapper.ClassMapper;
+import com.education.mapper.ParentMapper;
+import com.education.mapper.TeacherMapper;
 import com.education.bean.Class;
 import com.education.bean.ClassAndSchool;
 @Service
@@ -14,7 +16,10 @@ import com.education.bean.ClassAndSchool;
 public class ClassService {
 	@Autowired
 	ClassMapper classMapper;
-	
+	@Autowired
+	ParentMapper parentMapper;
+	@Autowired
+	TeacherMapper teacherMapper;
 	public  List<Class> getSchoolClassList(int sid) {
 		return classMapper.getClassList(sid);
 	}
@@ -30,6 +35,13 @@ public class ClassService {
 	public ClassAndSchool getClassByToeken(String token){
 		return classMapper.getClassByToeken(token);
 		
+	}
+	
+	public List[] getNumbersFromCid(int cid){
+		List[] parentTeacher = new List[2];
+		parentTeacher[0] = parentMapper.getParentsByCid(cid);
+		parentTeacher[1] = teacherMapper.getTeachersByCid(cid);
+		return parentTeacher;
 	}
 }
 

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.education.bean.ClassAndSchool;
+import com.education.bean.Parent;
 import com.education.bean.Student;
 import com.education.bean.StudentList;
 import com.education.mapper.ClassMapper;
+import com.education.mapper.ParentMapper;
 import com.education.mapper.StudentMapper;
 
 @Service
@@ -21,6 +23,8 @@ public class StudentService {
 	private StudentMapper studentMapper;
 	@Autowired
 	private ClassMapper classMapper;
+	@Autowired
+	private ParentMapper parentMapper;
 	
 	public int  createStudent(Student student) {
 		studentMapper.createStudent(student);
@@ -56,7 +60,8 @@ public class StudentService {
 		
 	}
 	
-	public int bandParent(int stid,int pid){
+	public int bandParent(int stid,int pid,int cid){
+	         	parentMapper.bandClass(pid, cid);
 		return studentMapper.bandParent(stid, pid);
 		
 	}
